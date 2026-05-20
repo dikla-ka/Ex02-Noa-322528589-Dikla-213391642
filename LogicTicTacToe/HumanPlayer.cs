@@ -17,18 +17,21 @@ namespace NotTicTacToeLogic
             o_Col = -1;
 
             Console.WriteLine("Enter row number: ");
-            while(int.TryParse(Console.ReadLine(), out o_Row)) 
+            while(!int.TryParse(Console.ReadLine(), out o_Row)) 
             { 
                 Console.WriteLine("Row must be a number");
                 Console.WriteLine("Enter row number: ");
             }
 
             Console.WriteLine("Enter column number: ");
-            while (int.TryParse(Console.ReadLine(), out o_Col))
+            while (!int.TryParse(Console.ReadLine(), out o_Col))
             {
                 Console.WriteLine("Column must be a number");
                 Console.WriteLine("Enter column number: ");
             }
+
+            o_Col--;
+            o_Row--;
         }
     }
 }

@@ -25,8 +25,12 @@ namespace NotTicTacToeLogic
         }
         public bool CheckIfValidCoord(int i_Row, int i_Col)
         {
-            bool isValidCoor = string.IsNullOrEmpty(m_Board[i_Row, i_Col]);
-            return isValidCoor;
+            return (i_Row >= 0 && i_Row < m_BoardSize) && (i_Col >= 0 && i_Col < m_BoardSize);
+        }
+
+        public bool CheckIfCellIsEmpty(int i_Row, int i_Col)
+        {
+            return string.IsNullOrEmpty(m_Board[i_Row, i_Col]);
         }
 
         public string CheckForWinner()
