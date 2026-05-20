@@ -3,7 +3,7 @@
 
 namespace NotTicTacToeLogic
 {
-    internal class Board
+    public class Board
     {
         private string[,] m_Board;
         private int m_BoardSize;

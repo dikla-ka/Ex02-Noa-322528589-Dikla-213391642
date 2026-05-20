@@ -10,22 +10,22 @@ namespace NotTicTacToeLogic
     {
         private int m_Id;
         private int m_Score = 0;
-        //protected Board m_Board;
+        protected Board m_board;
         private Symbols m_Symbol;
 
         private static int s_IdGenerator = 0;
-        
+
         public enum Symbols
         {
             X = 'X',
             O = 'O'
         }
 
-        public Player()
+        public Player(Board i_Board)
         {
             this.m_Id = s_IdGenerator;
             this.m_Symbol = (Symbols)(s_IdGenerator % 2 == 0 ? 'X' : 'O');
-            // this.m_Board = i_Board;
+            this.m_board = i_Board;
             s_IdGenerator++;
         }
 
