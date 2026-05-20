@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36717.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotTicTacToe", "NotTicTacToe\NotTicTacToe.csproj", "{6C91706D-F7C3-4FD1-80B4-5AE476CE6E9C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotTicTacToeUI", "NotTicTacToe\NotTicTacToeUI.csproj", "{6C91706D-F7C3-4FD1-80B4-5AE476CE6E9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicNotTicTacToe", "LogicTicTacToe\LogicNotTicTacToe.csproj", "{4665B7F2-7373-4EB2-90CD-57743354A469}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotTicTacToeLogic", "LogicTicTacToe\NotTicTacToeLogic.csproj", "{4665B7F2-7373-4EB2-90CD-57743354A469}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
