@@ -18,14 +18,16 @@ namespace NotTicTacToeLogic
         public enum Symbols
         {
             X = 'X',
-            O = 'O'
+            O = 'O',
+            Empty = ' '
         }
 
+  
         public Player(Board i_Board)
         {
-            this.m_Id = s_IdGenerator;
-            this.m_Symbol = (Symbols)(s_IdGenerator % 2 == 0 ? 'X' : 'O');
-            this.m_board = i_Board;
+            m_Id = s_IdGenerator;
+            m_Symbol = (Symbols)(s_IdGenerator % 2 == 0 ? Symbols.X : Symbols.O);
+            m_board = i_Board;
             s_IdGenerator++;
         }
 
@@ -49,10 +51,7 @@ namespace NotTicTacToeLogic
             m_Score++;
         }
 
-        public virtual void ChooseCoordinates(out int o_Row, out int o_Col)
-        {
-            o_Row = -1;
-            o_Col = -1;
-        }
+        public abstract void ChooseCoordinates(out int o_Row, out int o_Col);
+        
     }
 }

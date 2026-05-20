@@ -26,8 +26,6 @@ namespace NotTicTacToe
                 Console.WriteLine("1. Single Player (vs. Computer)");
                 Console.WriteLine("2. Two Players (vs. Human)");
             }
-
-
         }
 
         public static bool ValidateBoardSize()
