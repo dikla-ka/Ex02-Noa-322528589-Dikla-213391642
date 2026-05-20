@@ -1,9 +1,11 @@
-﻿using System;
-using static NotTicTacToeLogic.Player;
-
-
-namespace NotTicTacToeLogic
+﻿namespace NotTicTacToeLogic
 {
+    public enum Symbols
+    {
+        X = 'X',
+        O = 'O',
+        Empty = ' '
+    }
     public class Board
     {
         private Symbols[,] m_Board;
@@ -20,7 +22,7 @@ namespace NotTicTacToeLogic
             m_Board = new Symbols[sizeOfBoard, sizeOfBoard];
             m_BoardSize = sizeOfBoard;
         }
-        public string[,] GetBoard()
+        public Symbols[,] GetBoard()
         {
             return m_Board;
         }
@@ -117,7 +119,7 @@ namespace NotTicTacToeLogic
             bool streak = true;
             Symbols firstSignOfTheRow = m_Board[i_Row, 0];
 
-            if (string.IsNullOrEmpty(firstSignOfTheRow))
+            if (firstSignOfTheRow == Symbols.Empty)
             {
                 streak = false;
             }
@@ -142,7 +144,7 @@ namespace NotTicTacToeLogic
         {
             bool streak = true;
             Symbols firstSignOfTheCol = m_Board[0, i_Col];
-            if (string.IsNullOrEmpty(firstSignOfTheCol))
+            if (firstSignOfTheCol == Symbols.Empty)
             {
                 streak = false;
             }
@@ -166,7 +168,7 @@ namespace NotTicTacToeLogic
             bool streak = true;
             Symbols firstSignMainDiagonal = m_Board[0, 0];
 
-            if (string.IsNullOrEmpty(firstSignMainDiagonal))
+            if (firstSignMainDiagonal == Symbols.Empty)
             {
                 streak = false;
             }
@@ -190,7 +192,7 @@ namespace NotTicTacToeLogic
         {
             bool streak = true;
             Symbols firstSignsecondoryDiagonal = m_Board[0, m_BoardSize - 1];
-            if (string.IsNullOrEmpty(firstSignsecondoryDiagonal))
+            if (firstSignsecondoryDiagonal == Symbols.Empty)
             {
                 streak = false;
             }

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace NotTicTacToeLogic
 {
     public class AutoPlayer : Player
@@ -12,11 +7,13 @@ namespace NotTicTacToeLogic
         {
         }
 
-        public override void ChooseCoordinates(out int o_Row, out int o_Col)
+        public void ChooseCoordinates(out int o_Row, out int o_Col)
         {
-            o_Row = -1;
-            o_Col = -1;
             Random random = new Random();
+            o_Row = random.Next(0, m_board.getBoardSize());
+            o_Col = random.Next(0, m_board.getBoardSize());
+
+            
             while (m_board.CheckIfCellIsEmpty(o_Row, o_Col) == false)
             {
                 o_Row = random.Next(0, m_board.getBoardSize());

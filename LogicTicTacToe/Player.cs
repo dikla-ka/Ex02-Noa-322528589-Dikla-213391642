@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NotTicTacToeLogic
+﻿namespace NotTicTacToeLogic
 {
     public abstract class Player
     {
@@ -15,14 +9,6 @@ namespace NotTicTacToeLogic
 
         private static int s_IdGenerator = 0;
 
-        public enum Symbols
-        {
-            X = 'X',
-            O = 'O',
-            Empty = ' '
-        }
-
-  
         public Player(Board i_Board)
         {
             m_Id = s_IdGenerator;
@@ -51,7 +37,11 @@ namespace NotTicTacToeLogic
             m_Score++;
         }
 
-        public abstract void ChooseCoordinates(out int o_Row, out int o_Col);
-        
+        public void setBoard (Board board)
+        {
+            m_board=board;
+        }
+
+
     }
 }

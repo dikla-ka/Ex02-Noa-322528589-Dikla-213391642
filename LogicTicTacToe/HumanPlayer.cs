@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NotTicTacToeLogic
+﻿namespace NotTicTacToeLogic
 {
-    internal class HumanPlayer : Player
+    public class HumanPlayer : Player
     {
         public HumanPlayer(Board i_Board) : base(i_Board)
         {
-        }
-        public override void ChooseCoordinates(out int o_Row, out int o_Col)
-        {
-            GameUI.GetCoordinatesFromUser(m_board.getBoardSize(), out o_Row, out o_Col);
-            o_Col--;
-            o_Row--;
         }
     }
 }
