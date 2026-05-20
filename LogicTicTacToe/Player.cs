@@ -1,31 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NotTicTacToeLogic
+﻿namespace NotTicTacToeLogic
 {
     public abstract class Player
     {
         private int m_Id;
         private int m_Score = 0;
-        protected Board m_board;
+        protected Board m_Board = null;
         private Symbols m_Symbol;
 
         private static int s_IdGenerator = 0;
 
-        public enum Symbols
+        public Player()
         {
-            X = 'X',
-            O = 'O'
-        }
-
-        public Player(Board i_Board)
-        {
-            this.m_Id = s_IdGenerator;
-            this.m_Symbol = (Symbols)(s_IdGenerator % 2 == 0 ? 'X' : 'O');
-            this.m_board = i_Board;
+            m_Id = s_IdGenerator;
+            m_Symbol = (Symbols)(s_IdGenerator % 2 == 0 ? Symbols.X : Symbols.O);
             s_IdGenerator++;
         }
 
@@ -49,10 +36,16 @@ namespace NotTicTacToeLogic
             m_Score++;
         }
 
-        public virtual void ChooseCoordinates(out int o_Row, out int o_Col)
+        public virtual void setBoard (Board board)
+        {
+            m_Board = board;
+        }
+
+        public virtual bool HasCoordinates(out int o_Row, out int o_Col) 
         {
             o_Row = -1;
             o_Col = -1;
+            return false;
         }
     }
 }

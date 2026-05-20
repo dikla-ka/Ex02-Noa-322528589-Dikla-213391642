@@ -1,42 +1,53 @@
-﻿using System;
-
-
-namespace NotTicTacToeLogic
+﻿namespace NotTicTacToeLogic
 {
+    public enum Symbols
+    {
+        X = 'X',
+        O = 'O',
+        Empty = ' '
+    }
     public class Board
     {
-        private string[,] m_Board;
+        private Symbols[,] m_Board;
         private int m_BoardSize;
         private int m_CountTurns = 0;
 
-        private void SetBoardSize()
+        public Symbols GetCellSymbol(int i_Row, int i_Col)
         {
-            m_BoardSize = m_Board.GetLength(0);
+            return m_Board[i_Row, i_Col];
         }
-        public int getBoardSize ()
-        { 
 
+        public Board(int sizeOfBoard)
+        {
+            m_Board = new Symbols[sizeOfBoard, sizeOfBoard];
+            m_BoardSize = sizeOfBoard;
+        }
+        public Symbols[,] GetBoard()
+        {
+            return m_Board;
+        }
+        public int getBoardSize()
+        {
             return m_BoardSize;
         }
-        
+
         public bool IsBoardFull()
         {
             return m_CountTurns == (m_BoardSize * m_BoardSize);
         }
+
         public bool CheckIfValidCoord(int i_Row, int i_Col)
         {
             return (i_Row >= 0 && i_Row < m_BoardSize) && (i_Col >= 0 && i_Col < m_BoardSize);
         }
-
         public bool CheckIfCellIsEmpty(int i_Row, int i_Col)
         {
-            return string.IsNullOrEmpty(m_Board[i_Row, i_Col]);
+            return GetCellSymbol(i_Row, i_Col) == Symbols.Empty;
         }
-
-        public string CheckForWinner()
+        public Symbols CheckForWinner()
         {
-            string loosingPlayer = string.Empty;
-            string winnerPlayer = string.Empty;
+            Symbols loosingPlayer = Symbols.Empty;
+            Symbols winnerPlayer = Symbols.Empty;
             bool winnerFound = false;
 
             for (int i = 0; i < m_BoardSize; i++)
@@ -82,14 +93,14 @@ namespace NotTicTacToeLogic
             if (winnerFound == true)
             {
 
-                if (loosingPlayer == "X")
+                if (loosingPlayer == Symbols.X)
                 {
-                    winnerPlayer = "O";
+                    winnerPlayer = Symbols.O;
 
                 }
                 else
                 {
-                    winnerPlayer = "X";
+                    winnerPlayer = Symbols.X;
                 }
 
             }
@@ -97,84 +108,108 @@ namespace NotTicTacToeLogic
             return winnerPlayer;
         }
 
+        public void MakeMove (int i_Row, int i_Col, Symbols symbol)
+        {
+            m_Board[i_Row, i_Col] = symbol;
+            m_CountTurns++;
+        }
+
         private bool CheckRow(int i_Row)
         {
             bool streak = true;
-            string firstSignOfTheRow = m_Board[i_Row, 0];
-            for (int i = 1; i < m_BoardSize; i++)
-            {
-                string currentSign = m_Board[i_Row, i];
+            Symbols firstSignOfTheRow = m_Board[i_Row, 0];
 
-                if (currentSign != firstSignOfTheRow)
+            if (firstSignOfTheRow == Symbols.Empty)
+            {
+                streak = false;
+            }
+            else
+            {
+
+                for (int i = 1; i < m_BoardSize; i++)
                 {
-                    streak = false;
-                    break;
+                    Symbols currentSign = m_Board[i_Row, i];
+
+                    if (currentSign != firstSignOfTheRow)
+                    {
+                        streak = false;
+                        break;
+                    }
                 }
+
             }
             return streak; 
         }
-
         private bool CheckCol(int i_Col)
         {
             bool streak = true;
-            string firstSignOfTheCol = m_Board[0, i_Col];
-            for (int i = 1; i < m_BoardSize; i++)
+            Symbols firstSignOfTheCol = m_Board[0, i_Col];
+            if (firstSignOfTheCol == Symbols.Empty)
             {
-                string currentSign = m_Board[i, i_Col];
-
-                if (currentSign != firstSignOfTheCol)
+                streak = false;
+            }
+            else
+            {
+                for (int i = 1; i < m_BoardSize; i++)
                 {
-                    streak = false;
-                    break;
+                    Symbols currentSign = m_Board[i, i_Col];
+
+                    if (currentSign != firstSignOfTheCol)
+                    {
+                        streak = false;
+                        break;
+                    }
                 }
             }
             return streak;
         }
-
         private bool CheckMainDiagonal()
         {
             bool streak = true;
-            string firstSignMainDiagonal = m_Board[0, 0];
-            for (int i = 1; i < m_BoardSize; i++)
-            {
-                string currentSign = m_Board[i, i];
+            Symbols firstSignMainDiagonal = m_Board[0, 0];
 
-                if (currentSign != firstSignMainDiagonal)
+            if (firstSignMainDiagonal == Symbols.Empty)
+            {
+                streak = false;
+            }
+            else
+            {
+
+                for (int i = 1; i < m_BoardSize; i++)
                 {
-                    streak = false;
-                    break;
+                    Symbols currentSign = m_Board[i, i];
+
+                    if (currentSign != firstSignMainDiagonal)
+                    {
+                        streak = false;
+                        break;
+                    }
                 }
             }
             return streak;
         }
-
         private bool CheckSecondaryDiagonal()
         {
             bool streak = true;
-            string firstSignsecondoryDiagonal = m_Board[0, m_BoardSize - 1];
-            for (int currentRow = 1; currentRow < m_BoardSize; currentRow++)
+            Symbols firstSignsecondoryDiagonal = m_Board[0, m_BoardSize - 1];
+            if (firstSignsecondoryDiagonal == Symbols.Empty)
             {
-                string currentSign = m_Board[currentRow, m_BoardSize - (currentRow + 1)];
-
-                if (currentSign != firstSignsecondoryDiagonal)
+                streak = false;
+            }
+            else
+            {
+                for (int currentRow = 1; currentRow < m_BoardSize; currentRow++)
                 {
-                    streak = false;
-                    break;
+                    Symbols currentSign = m_Board[currentRow, m_BoardSize - (currentRow + 1)];
+
+                    if (currentSign != firstSignsecondoryDiagonal)
+                    {
+                        streak = false;
+                        break;
+                    }
                 }
             }
             return streak;
         }
-
-        public string[,] GetBoard()
-        { 
-            return m_Board; 
-        }
-        public void SetBoard (int sizeOfBoard)
-        {
-            m_Board = new string[sizeOfBoard, sizeOfBoard];
-        }
-
-
-
     }
 }
