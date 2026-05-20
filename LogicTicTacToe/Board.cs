@@ -3,17 +3,19 @@
 
 namespace NotTicTacToeLogic
 {
-    internal class Board
+    public class Board
     {
         private string[,] m_Board;
         private int m_BoardSize;
         private int m_CountTurns = 0;
+
         private void SetBoardSize()
         {
             m_BoardSize = m_Board.GetLength(0);
         }
         public int getBoardSize ()
         { 
+
             return m_BoardSize;
         }
         
@@ -21,7 +23,6 @@ namespace NotTicTacToeLogic
         {
             return m_CountTurns == (m_BoardSize * m_BoardSize);
         }
-
         public bool CheckIfValidCoord(int i_Row, int i_Col)
         {
             bool isValidCoor = string.IsNullOrEmpty(m_Board[i_Row, i_Col]);
@@ -109,7 +110,7 @@ namespace NotTicTacToeLogic
             return streak; 
         }
 
-        public bool CheckCol(int i_Col)
+        private bool CheckCol(int i_Col)
         {
             bool streak = true;
             string firstSignOfTheCol = m_Board[0, i_Col];
@@ -126,7 +127,7 @@ namespace NotTicTacToeLogic
             return streak;
         }
 
-        public bool CheckMainDiagonal()
+        private bool CheckMainDiagonal()
         {
             bool streak = true;
             string firstSignMainDiagonal = m_Board[0, 0];
@@ -143,7 +144,7 @@ namespace NotTicTacToeLogic
             return streak;
         }
 
-        public bool CheckSecondaryDiagonal()
+        private bool CheckSecondaryDiagonal()
         {
             bool streak = true;
             string firstSignsecondoryDiagonal = m_Board[0, m_BoardSize - 1];
@@ -168,6 +169,8 @@ namespace NotTicTacToeLogic
         {
             m_Board = new string[sizeOfBoard, sizeOfBoard];
         }
+
+
 
     }
 }
