@@ -4,16 +4,15 @@
     {
         private int m_Id;
         private int m_Score = 0;
-        protected Board m_board;
+        protected Board m_Board = null;
         private Symbols m_Symbol;
 
         private static int s_IdGenerator = 0;
 
-        public Player(Board i_Board)
+        public Player()
         {
             m_Id = s_IdGenerator;
             m_Symbol = (Symbols)(s_IdGenerator % 2 == 0 ? Symbols.X : Symbols.O);
-            m_board = i_Board;
             s_IdGenerator++;
         }
 
@@ -37,11 +36,16 @@
             m_Score++;
         }
 
-        public void setBoard (Board board)
+        public virtual void setBoard (Board board)
         {
-            m_board=board;
+            m_Board = board;
         }
 
-
+        public virtual bool HasCoordinates(out int o_Row, out int o_Col) 
+        {
+            o_Row = -1;
+            o_Col = -1;
+            return false;
+        }
     }
 }

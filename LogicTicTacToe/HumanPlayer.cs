@@ -2,8 +2,11 @@
 {
     public class HumanPlayer : Player
     {
-        public HumanPlayer(Board i_Board) : base(i_Board)
+        public override bool HasCoordinates(out int o_Row, out int o_Col)
         {
+            o_Row = -1;
+            o_Col = -1;
+            return false;
         }
     }
 }
