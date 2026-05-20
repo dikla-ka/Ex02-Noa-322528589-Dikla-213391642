@@ -39,5 +39,11 @@
     <Compile Include="GameUI.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogicTicTacToe\NotTicTacToeLogic.csproj">
+      <Project>{4665b7f2-7373-4eb2-90cd-57743354a469}</Project>
+      <Name>NotTicTacToeLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

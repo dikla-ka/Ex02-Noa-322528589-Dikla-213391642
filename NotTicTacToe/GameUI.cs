@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NotTicTacToeLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,24 +9,109 @@ namespace NotTicTacToe
 {
     public class GameUI
     {
+        private static int m_BoardSize;
+        private static bool m_PlayAgenstCompyter;
 
+        public static void PrintCellValueError(bool i_CellIsOcellIsOccupied)
+        {
+            if (i_CellIsOcellIsOccupied)
+            {
+                Console.Write("Cell is occupied");
+            }
+            else
+            {
+                Console.Write("cell is not on board");
+            }
 
-        public void setGameBoardSize()
+            Console.WriteLine(", Choose a diffrent cell");
+        }
+
+        public static int GetBoardHight() 
+        { 
+            return m_BoardSize; 
+        }
+
+        public static bool IsPlayAgenstCompyter()
+        {
+            return m_PlayAgenstCompyter;
+        }
+
+        public static bool GetPlayerChosenCell(Player player, out int o_row, out int o_col)
+        {
+            bool stopGame = false;
+            if (!player.HasCoordinates(out o_row, out o_col))
+            {
+                Console.WriteLine("Choose cell row: ");
+                string input = Console.ReadLine();
+                while (input != "Q" && !int.TryParse(input, out o_row))
+                {
+                    Console.WriteLine("Invalide input, must choose a number or Q (to stop game)");
+                    Console.WriteLine("Choose cell row: ");
+                    input = Console.ReadLine();
+                }
+
+                stopGame = input == "Q";
+                if (!stopGame)
+                {
+                    Console.WriteLine("Choose cell column: ");
+                    input = Console.ReadLine();
+                    while (input != "Q" && !int.TryParse(input, out o_col))
+                    {
+                        Console.WriteLine("Invalide input, must choose a number or Q (to stop game)");
+                        Console.WriteLine("Choose cell column: ");
+                        input = Console.ReadLine();
+                    }
+                    stopGame = input == "Q";
+                }
+
+                o_row--;
+                o_col--;
+            }
+
+            return stopGame;
+        }
+
+        public static bool HandleGameRoundEnd(bool i_GameStoped, bool i_BoardIsFull, Player[] i_Players, int i_WinnerId)
+        {
+            if (i_GameStoped)
+            {
+                Console.WriteLine("Game stoped.");
+            }
+            else if (i_BoardIsFull)
+            {
+                Console.WriteLine("Board is full. No winner this time.");
+            }
+            else
+            {
+                Console.WriteLine("We have a WInner!!!");
+                Console.WriteLine($"Player {i_Players[i_WinnerId].GetSymbol()} has won");
+            }
+
+            foreach (Player player in i_Players)
+            {
+                Console.WriteLine($"Player '{player.GetSymbol()}' Score {player.GetScore()}");
+            }
+
+            Console.WriteLine("To Play anther Round enter 1, to shutdown game enter any thing else");
+            return Console.ReadLine() == "1";
+        }
+
+        public static void SetGameBoardSize()
         {
             Console.WriteLine("Choose board size (Between 3 - 9):");
-            while (!ValidateBoardSize())
+            while (!ValidateBoardSize(out m_BoardSize))
             {
                 Console.WriteLine("Invalid board size. Please try again.");
                 Console.WriteLine("Choose board size (Between 3 - 9):");
             }
         }
 
-        public void setGameMode()
+        public static void SetGameMode()
         {
             Console.WriteLine("Please choose game mode:");
             Console.WriteLine("1. Single Player (vs. Computer)");
             Console.WriteLine("2. Two Players (vs. Human)");
-            while (!ValidateGameMode())
+            while (!ValidateGameMode(out m_PlayAgenstCompyter))
             {
                 Console.WriteLine("Invalid game mode. Please try again.");
                 Console.WriteLine("1. Single Player (vs. Computer)");
@@ -33,15 +119,16 @@ namespace NotTicTacToe
             }
         }
 
-        private static bool ValidateBoardSize()
+        private static bool ValidateBoardSize(out int i_BoardSize)
         {
-            bool validInput = int.TryParse(Console.ReadLine(), out int boardSize);
-            return (validInput && boardSize >= 3 && boardSize <= 9);
+            bool validInput = int.TryParse(Console.ReadLine(), out i_BoardSize);
+            return (validInput && i_BoardSize >= 3 && i_BoardSize <= 9);
         }
 
-        private static bool ValidateGameMode()
+        private static bool ValidateGameMode(out bool i_PlayAgenstComputer)
         {
             bool validInput = int.TryParse(Console.ReadLine(), out int gameMode);
+            i_PlayAgenstComputer = (gameMode == 1);
             return (validInput && (gameMode == 1 || gameMode == 2));
         }
     }

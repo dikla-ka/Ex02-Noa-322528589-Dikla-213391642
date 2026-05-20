@@ -16,6 +16,11 @@
             s_IdGenerator++;
         }
 
+        public virtual void ResetScore()
+        {
+            m_Score = 0;
+        }
+
         public virtual int GetId()
         {
             return m_Id;
@@ -36,7 +41,7 @@
             m_Score++;
         }
 
-        public virtual void setBoard (Board board)
+        public virtual void SetBoard (Board board)
         {
             m_Board = board;
         }

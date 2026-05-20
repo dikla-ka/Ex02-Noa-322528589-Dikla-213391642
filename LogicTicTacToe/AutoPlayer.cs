@@ -11,7 +11,7 @@ namespace NotTicTacToeLogic
             o_Col = random.Next(0, m_Board.getBoardSize());
 
 
-            while (m_Board.CheckIfCellIsEmpty(o_Row, o_Col) == false)
+            while (m_Board.IsCellEmpty(o_Row, o_Col) == false)
             {
                 o_Row = random.Next(0, m_Board.getBoardSize());
                 o_Col = random.Next(0, m_Board.getBoardSize());

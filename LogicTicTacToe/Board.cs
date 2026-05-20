@@ -2,15 +2,15 @@
 {
     public enum Symbols
     {
+        Empty = 0,
         X = 'X',
-        O = 'O',
-        Empty = ' '
+        O = 'O'
     }
     public class Board
     {
         private Symbols[,] m_Board;
         private int m_BoardSize;
-        private int m_CountTurns = 0;
+        //private int m_CountTurns = 0;
 
         public Symbols GetCellSymbol(int i_Row, int i_Col)
         {
@@ -22,39 +22,42 @@
             m_Board = new Symbols[sizeOfBoard, sizeOfBoard];
             m_BoardSize = sizeOfBoard;
         }
+
         public Symbols[,] GetBoard()
         {
             return m_Board;
         }
+
         public int getBoardSize()
         {
             return m_BoardSize;
         }
 
-        public bool IsBoardFull()
+        public bool IsBoardFull(int i_CountTurnsPlayed)
         {
-            return m_CountTurns == (m_BoardSize * m_BoardSize);
+            return i_CountTurnsPlayed == (m_BoardSize * m_BoardSize);
         }
 
-        public bool CheckIfValidCoord(int i_Row, int i_Col)
+        public bool IsCoordValid(int i_Row, int i_Col)
         {
             return (i_Row >= 0 && i_Row < m_BoardSize) && (i_Col >= 0 && i_Col < m_BoardSize);
         }
-        public bool CheckIfCellIsEmpty(int i_Row, int i_Col)
+
+        public bool IsCellEmpty(int i_Row, int i_Col)
         {
             return GetCellSymbol(i_Row, i_Col) == Symbols.Empty;
         }
-        public Symbols CheckForWinner()
+        public bool HasWinner()
         {
-            Symbols loosingPlayer = Symbols.Empty;
-            Symbols winnerPlayer = Symbols.Empty;
+            //Symbols losingPlayer = Symbols.Empty;
+            //Symbols winnerPlayer = Symbols.Empty;
             bool winnerFound = false;
 
             for (int i = 0; i < m_BoardSize; i++)
             {
-                if (CheckRow(i) == true)
+                if (IsRowFull(i) == true)
                 {
-                    loosingPlayer = m_Board[i, 0];
+                    //losingPlayer = m_Board[i, 0];
                     winnerFound = true;
                     break;
                 }
@@ -63,9 +66,9 @@
             {
                 for (int i = 0; i < m_BoardSize; i++)
                 {
-                    if (CheckCol(i) == true)
+                    if (IsColFull(i) == true)
                     {
-                        loosingPlayer = m_Board[0, i];
+                        //losingPlayer = m_Board[0, i];
                         winnerFound = true;
                         break;
                     }
@@ -73,48 +76,48 @@
             }
             if (winnerFound == false)
             {
-                if (CheckMainDiagonal() == true)
+                if (IsMainDiagonalFull() == true)
                 {
-                    loosingPlayer = m_Board[0, 0];
+                    //losingPlayer = m_Board[0, 0];
                     winnerFound = true;
                 }
 
             }
             if (winnerFound == false)
             {
-                if (CheckSecondaryDiagonal() == true)
+                if (IsMainSecondaryFull() == true)
                 {
-                    loosingPlayer = m_Board[0, m_BoardSize - 1];
+                    //losingPlayer = m_Board[0, m_BoardSize - 1];
                     winnerFound = true;
                 }
 
             }
 
-            if (winnerFound == true)
-            {
+            //if (winnerFound == true)
+            //{
 
-                if (loosingPlayer == Symbols.X)
-                {
-                    winnerPlayer = Symbols.O;
+            //    if (losingPlayer == Symbols.X)
+            //    {
+            //        winnerPlayer = Symbols.O;
 
-                }
-                else
-                {
-                    winnerPlayer = Symbols.X;
-                }
+            //    }
+            //    else
+            //    {
+            //        winnerPlayer = Symbols.X;
+            //    }
 
-            }
+            //}
 
-            return winnerPlayer;
+            return winnerFound;
         }
 
         public void MakeMove (int i_Row, int i_Col, Symbols symbol)
         {
             m_Board[i_Row, i_Col] = symbol;
-            m_CountTurns++;
+            //m_CountTurns++;
         }
 
-        private bool CheckRow(int i_Row)
+        private bool IsRowFull(int i_Row)
         {
             bool streak = true;
             Symbols firstSignOfTheRow = m_Board[i_Row, 0];
@@ -140,7 +143,7 @@
             }
             return streak; 
         }
-        private bool CheckCol(int i_Col)
+        private bool IsColFull(int i_Col)
         {
             bool streak = true;
             Symbols firstSignOfTheCol = m_Board[0, i_Col];
@@ -163,7 +166,7 @@
             }
             return streak;
         }
-        private bool CheckMainDiagonal()
+        private bool IsMainDiagonalFull()
         {
             bool streak = true;
             Symbols firstSignMainDiagonal = m_Board[0, 0];
@@ -188,7 +191,7 @@
             }
             return streak;
         }
-        private bool CheckSecondaryDiagonal()
+        private bool IsMainSecondaryFull()
         {
             bool streak = true;
             Symbols firstSignsecondoryDiagonal = m_Board[0, m_BoardSize - 1];
