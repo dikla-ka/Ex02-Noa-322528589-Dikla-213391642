@@ -5,45 +5,44 @@
         private int m_Id;
         private int m_Score = 0;
         protected Board m_Board = null;
-        private Symbols m_Symbol;
-
+        private eSymbols m_Symbol;
         private static int s_IdGenerator = 0;
 
         public Player()
         {
             m_Id = s_IdGenerator;
-            m_Symbol = (Symbols)(s_IdGenerator % 2 == 0 ? Symbols.X : Symbols.O);
+            m_Symbol = (eSymbols)(s_IdGenerator % 2 == 0 ? eSymbols.X : eSymbols.O);
             s_IdGenerator++;
         }
 
-        public virtual void ResetScore()
+        public void ResetScore()
         {
             m_Score = 0;
         }
 
-        public virtual int GetId()
+        public int GetId()
         {
             return m_Id;
         }
 
-        public virtual Symbols GetSymbol()
+        public eSymbols GetSymbol()
         {
             return m_Symbol;
         }
 
-        public virtual int GetScore()
+        public int GetScore()
         {
             return m_Score;
         }
 
-        public virtual void IncrementScore()
+        public void IncrementScore()
         {
             m_Score++;
         }
 
-        public virtual void SetBoard (Board board)
+        public void SetBoard(Board i_Board)
         {
-            m_Board = board;
+            m_Board = i_Board;
         }
 
         public virtual bool HasCoordinates(out int o_Row, out int o_Col) 
