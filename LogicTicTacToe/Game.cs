@@ -1,6 +1,6 @@
 ﻿namespace NotTicTacToeLogic
 {
-    public enum Symbols
+    public enum eSymbols
     {
         Empty = 0,
         X = 'X',
@@ -108,9 +108,9 @@
             return gameOver;
         }
 
-        public Symbols[,] GetBoard()
+        public eSymbols[,] GetBoard()
         {
-            return m_Board.GetBoard();
+            return m_BoardManager.GetBoard();
         }
 
         public Player GetCurrentPlayer()
@@ -121,10 +121,6 @@
         public Player[] GetPlayers()
         {
             return m_Players;
-        }
-        public Board GetBoard()
-        {
-            return m_BoardManager;
         }
     }
 }

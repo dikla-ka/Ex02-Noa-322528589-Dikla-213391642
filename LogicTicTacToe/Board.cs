@@ -1,11 +1,5 @@
 ﻿namespace NotTicTacToeLogic
 {
-    public enum eSymbols
-    {
-        Empty = 0,
-        X = 'X',
-        O = 'O'
-    }
     public class Board
     {
         private eSymbols[,] m_BoardMatrix;
@@ -14,6 +8,11 @@
         {
             m_BoardMatrix = new eSymbols[i_SizeOfBoard, i_SizeOfBoard];
             m_BoardSize = i_SizeOfBoard;
+        }
+
+        public eSymbols[,] GetBoard()
+        {
+            return m_BoardMatrix;
         }
         public eSymbols GetCellSymbol(int i_Row, int i_Col)
         {
