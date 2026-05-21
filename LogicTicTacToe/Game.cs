@@ -1,5 +1,12 @@
 ﻿namespace NotTicTacToeLogic
 {
+    public enum Symbols
+    {
+        Empty = 0,
+        X = 'X',
+        O = 'O'
+    }
+    
     public class Game
     {
         private Board m_BoardManager;
@@ -39,7 +46,6 @@
             m_Players[0].SetBoard(m_BoardManager);
             m_Players[1].SetBoard(m_BoardManager);
             m_CountTurns = 0;
-
         }
 
         public bool TryToPlayTurn(int i_Row, int i_Col, out bool o_CellIsOccupied)
@@ -89,17 +95,22 @@
 
             if (m_BoardManager.IsBoardFull(m_CountTurns))
             {
-                o_BoardIsFull = true;
-                gameOver = true;
-            }
-            else if (m_BoardManager.HasWinner())
-            {
                 gameOver = true;
                 m_Players[(m_CountTurns) % 2].IncrementScore();
                 o_WinnerId = m_Players[(m_CountTurns) % 2].GetId();
             }
+            else if (m_BoardManager.HasWinner())
+            {
+                o_BoardIsFull = true;
+                gameOver = true;
+            }
 
             return gameOver;
+        }
+
+        public Symbols[,] GetBoard()
+        {
+            return m_Board.GetBoard();
         }
 
         public Player GetCurrentPlayer()
