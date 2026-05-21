@@ -36,6 +36,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameRun.cs" />
     <Compile Include="GameUI.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
@@ -44,6 +45,11 @@
       <Project>{4665b7f2-7373-4eb2-90cd-57743354a469}</Project>
       <Name>NotTicTacToeLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Ex02.ConsoleUtils">
+      <HintPath>..\..\..\..\Temp\Ex02.ConsoleUtils.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
