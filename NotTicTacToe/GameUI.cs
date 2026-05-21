@@ -5,42 +5,58 @@ namespace NotTicTacToe
 {
     public class GameUI
     {
-        private static int m_BoardHight;
-        private static bool m_PlayAgenstCompyter;
+        private static int s_BoardHight;
+        private static bool s_PlayAgainstComputer;
 
-        public static void PrintBoard(Symbols[,] i_Board)
+        public static void PrintBoard(eSymbols[,] i_Board)
         {
-            for (int i = 1; i <= m_BoardHight; i++)
+            Ex02.ConsoleUtils.Screen.Clear();
+            for (int i = 1; i <= s_BoardHight; i++)
             {
                 Console.Write($"  {i} ");
             }
 
             Console.WriteLine();
-            for (int i = 1; i <= m_BoardHight; i++)
+            for (int i = 1; i <= s_BoardHight; i++)
             {
                 printRowCelles(i, i_Board);
                 printOrezontalLine();
             }
         }
 
-        private static void printRowCelles(int i_RowNumber, Symbols[,] i_Board)
+        private static void printRowCelles(int i_RowNumber, eSymbols[,] i_Board)
         {
             Console.Write($"{i_RowNumber}|");
-            for (int i = 0; i < m_BoardHight; i++) 
+            for (int i = 0; i < s_BoardHight; i++) 
             {
-                string cellValue = i_Board[i_RowNumber - 1, i] == Symbols.Empty ? " " : i_Board[i_RowNumber - 1, i].ToString();
+                string cellValue = i_Board[i_RowNumber - 1, i] == eSymbols.Empty ? " " : i_Board[i_RowNumber - 1, i].ToString();
                 Console.Write($" {cellValue} |");
             }
             
             Console.WriteLine();
         }
 
-        private static void printOrezontalLine() 
+        private static void printOrezontalLine()
         {
             Console.Write(" =");
-            for (int i = 1; i <= m_BoardHight; i++)
+            for (int i = 1; i <= s_BoardHight; i++)
+            {
+                Console.Write($"====");
+            }
+
+            Console.WriteLine();
         }
-              
+
+        public static void SetGameBoardSize()
+        {
+            Console.WriteLine("Choose board size (Between 3 - 9):");
+            while (!ValidateBoardSize(out s_BoardHight))
+            {
+                Console.WriteLine("Invalid board size. Please try again.");
+                Console.WriteLine("Choose board size (Between 3 - 9):");
+            }
+        }
+
         private static bool ValidateBoardSize(out int o_BoardSize)
         {
             bool validInput = int.TryParse(Console.ReadLine(), out o_BoardSize);
@@ -88,15 +104,15 @@ namespace NotTicTacToe
 
         public static int GetBoardHight() 
         { 
-            return m_BoardHight; 
+            return s_BoardHight; 
         }
 
         public static bool IsPlayAgenstCompyter()
         {
-            return m_PlayAgenstCompyter;
+            return s_PlayAgainstComputer;
         }
 
-        public static bool GetPlayerChosenCell(Player player, out int o_row, out int o_col)
+        public static bool GetPlayerChosenCell(Player i_Player, out int o_Row, out int o_Col)
         {
             bool stopGame = false;
             if (!i_Player.HasCoordinates(out o_Row, out o_Col))
