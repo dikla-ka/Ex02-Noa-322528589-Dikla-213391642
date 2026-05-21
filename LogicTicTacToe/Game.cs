@@ -93,14 +93,14 @@
             o_BoardIsFull = false;
             o_WinnerId = -1;
 
-            if (m_BoardManager.IsBoardFull(m_CountTurns))
+            if (m_BoardManager.HasWinner())
             {
                 gameOver = true;
                 m_Players[(m_CountTurns) % 2].IncrementScore();
                 o_WinnerId = m_Players[(m_CountTurns) % 2].GetId();
             }
-            else if (m_BoardManager.HasWinner())
-            {
+            else if (m_BoardManager.IsBoardFull(m_CountTurns))
+                {
                 o_BoardIsFull = true;
                 gameOver = true;
             }

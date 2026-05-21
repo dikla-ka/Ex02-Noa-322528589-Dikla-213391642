@@ -24,25 +24,27 @@ namespace NotTicTacToe
                 while (!game.IsGameOver(out boardIsFull, out winnerId))
                 {
                     stopGame = GameUI.GetPlayerChosenCell(game.GetCurrentPlayer(), out row, out col);
+                    if (!stopGame)
+                    {
+                        while (!game.TryToPlayTurn(row, col, out bool cellIsOccupied))
+                        {
+                            GameUI.PrintCellValueError(cellIsOccupied);
+                            stopGame = GameUI.GetPlayerChosenCell(game.GetCurrentPlayer(), out row, out col);
+                            if (stopGame)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     if (stopGame)
                     {
                         break;
                     }
 
-                    while (!game.TryToPlayTurn(row, col, out bool cellIsOccupied))
-                    {
-                        GameUI.PrintCellValueError(cellIsOccupied);
-                        stopGame = GameUI.GetPlayerChosenCell(game.GetCurrentPlayer(), out row, out col);
-                        if (stopGame)
-                        {
-                            break;
-                        }
-                    }
-
                     GameUI.PrintBoard(game.GetBoard());
                 }
 
-                playAntherRound = GameUI.HandleGameRoundEnd(boardIsFull, stopGame, game.GetPlayers(), winnerId);
+                playAntherRound = GameUI.HandleGameRoundEnd(stopGame, boardIsFull, game.GetPlayers(), winnerId);
             }
         }
     }
