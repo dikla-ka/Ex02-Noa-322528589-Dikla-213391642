@@ -1,5 +1,12 @@
 ﻿namespace NotTicTacToeLogic
 {
+    public enum Symbols
+    {
+        Empty = 0,
+        X = 'X',
+        O = 'O'
+    }
+    
     public class Game
     {
         private Board m_Board;
@@ -9,6 +16,7 @@
         public void InitializeGame(int i_BoardSize, bool i_SecondPlayerIsComputer)
         {
             m_Board = new Board(i_BoardSize);
+            m_CountTurns = 0;
             if (m_Players == null)
             {
                 m_Players = new Player[2];
@@ -24,11 +32,6 @@
                 }
             }
 
-            foreach (Player player in m_Players)
-            {
-                player.ResetScore();
-            }
-
             m_Players[0].SetBoard(m_Board);
             m_Players[1].SetBoard(m_Board);
         }
@@ -39,7 +42,6 @@
             m_Players[0].SetBoard(m_Board);
             m_Players[1].SetBoard(m_Board);
             m_CountTurns = 0;
-
         }
 
         public bool TryToPlayTurn(int i_Row, int i_Col, out bool o_CellIsOccupied)
@@ -87,19 +89,25 @@
             o_BoardIsFull = false;
             o_WinnerId = -1;
 
-            if (m_Board.IsBoardFull(m_CountTurns))
-            {
-                o_BoardIsFull = true;
-                gameOver = true;
-            }
-            else if (m_Board.HasWinner())
+            
+            if (m_Board.HasWinner())
             {
                 gameOver = true;
                 m_Players[(m_CountTurns) % 2].IncrementScore();
                 o_WinnerId = m_Players[(m_CountTurns) % 2].GetId();
             }
+            else if (m_Board.IsBoardFull(m_CountTurns))
+            {
+                o_BoardIsFull = true;
+                gameOver = true;
+            }
 
             return gameOver;
+        }
+
+        public Symbols[,] GetBoard()
+        {
+            return m_Board.GetBoard();
         }
 
         public Player GetCurrentPlayer()

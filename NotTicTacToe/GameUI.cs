@@ -12,6 +12,45 @@ namespace NotTicTacToe
         private static int m_BoardSize;
         private static bool m_PlayAgenstCompyter;
 
+        public static void PrintBoard(Symbols[,] i_Board)
+        {
+            for (int i = 1; i <= m_BoardSize; i++)
+            {
+                Console.Write($"  {i} ");
+            }
+
+            Console.WriteLine();
+            for (int i = 1; i <= m_BoardSize; i++)
+            {
+                PrintRowCelles(i, i_Board);
+                PrintOrezontalLine();
+            }
+
+        }
+
+        private static void PrintRowCelles(int i_RowNumber, Symbols[,] i_Board)
+        {
+            Console.Write($"{i_RowNumber}|");
+            for (int i = 0; i < m_BoardSize; i++) 
+            {
+                string cellValue = i_Board[i_RowNumber - 1, i] == Symbols.Empty ? " " : i_Board[i_RowNumber - 1, i].ToString();
+                Console.Write($" {cellValue} |");
+            }
+            
+            Console.WriteLine();
+        }
+
+        private static void PrintOrezontalLine() 
+        {
+            Console.Write(" =");
+            for (int i = 1; i <= m_BoardSize; i++)
+            {
+                Console.Write($"====");
+            }
+
+            Console.WriteLine();
+        }
+
         public static void PrintCellValueError(bool i_CellIsOcellIsOccupied)
         {
             if (i_CellIsOcellIsOccupied)

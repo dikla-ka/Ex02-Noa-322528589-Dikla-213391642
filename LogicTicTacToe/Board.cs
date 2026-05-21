@@ -1,11 +1,5 @@
 ﻿namespace NotTicTacToeLogic
 {
-    public enum Symbols
-    {
-        Empty = 0,
-        X = 'X',
-        O = 'O'
-    }
     public class Board
     {
         private Symbols[,] m_Board;

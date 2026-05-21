@@ -37,6 +37,8 @@ namespace NotTicTacToe
                             break;
                         }
                     }
+
+                    GameUI.PrintBoard(game.GetBoard());
                 }
 
                 playAntherRound = GameUI.HandleGameRoundEnd(boardIsFull, stopGame, game.GetPlayers(), winnerId);
