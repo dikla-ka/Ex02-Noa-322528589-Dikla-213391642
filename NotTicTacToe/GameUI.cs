@@ -50,14 +50,14 @@ namespace NotTicTacToe
         public static void SetGameBoardSize()
         {
             Console.WriteLine("Choose board size (Between 3 - 9):");
-            while (!ValidateBoardSize(out s_BoardHight))
+            while (!validateBoardSize(out s_BoardHight))
             {
                 Console.WriteLine("Invalid board size. Please try again.");
                 Console.WriteLine("Choose board size (Between 3 - 9):");
             }
         }
 
-        private static bool ValidateBoardSize(out int o_BoardSize)
+        private static bool validateBoardSize(out int o_BoardSize)
         {
             bool validInput = int.TryParse(Console.ReadLine(), out o_BoardSize);
             return (validInput && o_BoardSize >= 3 && o_BoardSize <= 9);
@@ -68,7 +68,7 @@ namespace NotTicTacToe
             Console.WriteLine("Please choose game mode:");
             Console.WriteLine("1. Single Player (vs. Computer)");
             Console.WriteLine("2. Two Players (vs. Human)");
-            while (!ValidateGameMode(out s_PlayAgainstComputer))
+            while (!validateGameMode(out s_PlayAgainstComputer))
             {
                 Console.WriteLine("Invalid game mode. Please try again.");
                 Console.WriteLine("1. Single Player (vs. Computer)");
@@ -76,7 +76,7 @@ namespace NotTicTacToe
             }
         }
               
-        private static bool ValidateGameMode(out bool i_PlayAgenstComputer)
+        private static bool validateGameMode(out bool i_PlayAgenstComputer)
         {
             bool validInput = int.TryParse(Console.ReadLine(), out int gameMode);
             i_PlayAgenstComputer = (gameMode == 1);

@@ -14,26 +14,32 @@
         {
             return m_BoardMatrix;
         }
+
         public eSymbols GetCellSymbol(int i_Row, int i_Col)
         {
             return m_BoardMatrix[i_Row, i_Col];
         }
+        
         public int GetBoardSize()
         {
             return m_BoardSize;
         }
+        
         public bool IsBoardFull(int i_CountTurnsPlayed)
         {
             return i_CountTurnsPlayed == (m_BoardSize * m_BoardSize);
         }
+
         public bool IsCoordValid(int i_Row, int i_Col)
         {
             return (i_Row >= 0 && i_Row < m_BoardSize) && (i_Col >= 0 && i_Col < m_BoardSize);
         }
+        
         public bool IsCellEmpty(int i_Row, int i_Col)
         {
             return GetCellSymbol(i_Row, i_Col) == eSymbols.Empty;
         }
+        
         public bool HasWinner()
         {
             bool winnerFound = false;
@@ -75,10 +81,12 @@
             }
             return winnerFound;
         }
+        
         public void MakeMove(int i_Row, int i_Col, eSymbols i_Symbol)
         {
             m_BoardMatrix[i_Row, i_Col] = i_Symbol;
         }
+        
         private bool isRowFull(int i_Row)
         {
             bool streak = true;
@@ -105,6 +113,7 @@
             }
             return streak; 
         }
+        
         private bool isColFull(int i_Col)
         {
             bool streak = true;
@@ -128,6 +137,7 @@
             }
             return streak;
         }
+        
         private bool isMainDiagonalFull()
         {
             bool streak = true;
@@ -153,6 +163,7 @@
             }
             return streak;
         }
+        
         private bool isMainSecondaryFull()
         {
             bool streak = true;
