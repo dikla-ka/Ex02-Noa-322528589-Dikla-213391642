@@ -1,122 +1,91 @@
 ﻿namespace NotTicTacToeLogic
 {
+    public enum eSymbols
+    {
+        Empty = 0,
+        X = 'X',
+        O = 'O'
+    }
     public class Board
     {
-        private Symbols[,] m_Board;
+        private eSymbols[,] m_BoardMatrix;
         private int m_BoardSize;
-        //private int m_CountTurns = 0;
-
-        public Symbols GetCellSymbol(int i_Row, int i_Col)
+        public Board(int i_SizeOfBoard)
         {
-            return m_Board[i_Row, i_Col];
+            m_BoardMatrix = new eSymbols[i_SizeOfBoard, i_SizeOfBoard];
+            m_BoardSize = i_SizeOfBoard;
         }
-
-        public Board(int sizeOfBoard)
+        public eSymbols GetCellSymbol(int i_Row, int i_Col)
         {
-            m_Board = new Symbols[sizeOfBoard, sizeOfBoard];
-            m_BoardSize = sizeOfBoard;
+            return m_BoardMatrix[i_Row, i_Col];
         }
-
-        public Symbols[,] GetBoard()
-        {
-            return m_Board;
-        }
-
-        public int getBoardSize()
+        public int GetBoardSize()
         {
             return m_BoardSize;
         }
-
         public bool IsBoardFull(int i_CountTurnsPlayed)
         {
             return i_CountTurnsPlayed == (m_BoardSize * m_BoardSize);
         }
-
         public bool IsCoordValid(int i_Row, int i_Col)
         {
             return (i_Row >= 0 && i_Row < m_BoardSize) && (i_Col >= 0 && i_Col < m_BoardSize);
         }
-
         public bool IsCellEmpty(int i_Row, int i_Col)
         {
-            return GetCellSymbol(i_Row, i_Col) == Symbols.Empty;
+            return GetCellSymbol(i_Row, i_Col) == eSymbols.Empty;
         }
         public bool HasWinner()
         {
-            //Symbols losingPlayer = Symbols.Empty;
-            //Symbols winnerPlayer = Symbols.Empty;
             bool winnerFound = false;
 
             for (int i = 0; i < m_BoardSize; i++)
             {
-                if (IsRowFull(i) == true)
+                if (isRowFull(i))
                 {
-                    //losingPlayer = m_Board[i, 0];
                     winnerFound = true;
                     break;
                 }
             }
-            if (winnerFound == false)
+            if (!winnerFound)
             {
                 for (int i = 0; i < m_BoardSize; i++)
                 {
-                    if (IsColFull(i) == true)
+                    if (isColFull(i))
                     {
-                        //losingPlayer = m_Board[0, i];
                         winnerFound = true;
                         break;
                     }
                 }
             }
-            if (winnerFound == false)
+            if (!winnerFound)
             {
-                if (IsMainDiagonalFull() == true)
+                if (isMainDiagonalFull())
                 {
-                    //losingPlayer = m_Board[0, 0];
                     winnerFound = true;
                 }
 
             }
-            if (winnerFound == false)
+            if (!winnerFound)
             {
-                if (IsMainSecondaryFull() == true)
+                if (isMainSecondaryFull())
                 {
-                    //losingPlayer = m_Board[0, m_BoardSize - 1];
                     winnerFound = true;
                 }
 
             }
-
-            //if (winnerFound == true)
-            //{
-
-            //    if (losingPlayer == Symbols.X)
-            //    {
-            //        winnerPlayer = Symbols.O;
-
-            //    }
-            //    else
-            //    {
-            //        winnerPlayer = Symbols.X;
-            //    }
-
-            //}
-
             return winnerFound;
         }
-
-        public void MakeMove (int i_Row, int i_Col, Symbols symbol)
+        public void MakeMove(int i_Row, int i_Col, eSymbols i_Symbol)
         {
-            m_Board[i_Row, i_Col] = symbol;
-            //m_CountTurns++;
+            m_BoardMatrix[i_Row, i_Col] = i_Symbol;
         }
-
-        private bool IsRowFull(int i_Row)
+        private bool isRowFull(int i_Row)
         {
             bool streak = true;
-            Symbols firstSignOfTheRow = m_Board[i_Row, 0];
+            eSymbols firstSignOfTheRow = m_BoardMatrix[i_Row, 0];
 
-            if (firstSignOfTheRow == Symbols.Empty)
+            if (firstSignOfTheRow == eSymbols.Empty)
             {
                 streak = false;
             }
@@ -125,7 +94,7 @@
 
                 for (int i = 1; i < m_BoardSize; i++)
                 {
-                    Symbols currentSign = m_Board[i_Row, i];
+                    eSymbols currentSign = m_BoardMatrix[i_Row, i];
 
                     if (currentSign != firstSignOfTheRow)
                     {
@@ -137,11 +106,11 @@
             }
             return streak; 
         }
-        private bool IsColFull(int i_Col)
+        private bool isColFull(int i_Col)
         {
             bool streak = true;
-            Symbols firstSignOfTheCol = m_Board[0, i_Col];
-            if (firstSignOfTheCol == Symbols.Empty)
+            eSymbols firstSignOfTheCol = m_BoardMatrix[0, i_Col];
+            if (firstSignOfTheCol == eSymbols.Empty)
             {
                 streak = false;
             }
@@ -149,7 +118,7 @@
             {
                 for (int i = 1; i < m_BoardSize; i++)
                 {
-                    Symbols currentSign = m_Board[i, i_Col];
+                    eSymbols currentSign = m_BoardMatrix[i, i_Col];
 
                     if (currentSign != firstSignOfTheCol)
                     {
@@ -160,12 +129,12 @@
             }
             return streak;
         }
-        private bool IsMainDiagonalFull()
+        private bool isMainDiagonalFull()
         {
             bool streak = true;
-            Symbols firstSignMainDiagonal = m_Board[0, 0];
+            eSymbols firstSignMainDiagonal = m_BoardMatrix[0, 0];
 
-            if (firstSignMainDiagonal == Symbols.Empty)
+            if (firstSignMainDiagonal == eSymbols.Empty)
             {
                 streak = false;
             }
@@ -174,7 +143,7 @@
 
                 for (int i = 1; i < m_BoardSize; i++)
                 {
-                    Symbols currentSign = m_Board[i, i];
+                    eSymbols currentSign = m_BoardMatrix[i, i];
 
                     if (currentSign != firstSignMainDiagonal)
                     {
@@ -185,11 +154,11 @@
             }
             return streak;
         }
-        private bool IsMainSecondaryFull()
+        private bool isMainSecondaryFull()
         {
             bool streak = true;
-            Symbols firstSignsecondoryDiagonal = m_Board[0, m_BoardSize - 1];
-            if (firstSignsecondoryDiagonal == Symbols.Empty)
+            eSymbols firstSignSecondoryDiagonal = m_BoardMatrix[0, m_BoardSize - 1];
+            if (firstSignSecondoryDiagonal == eSymbols.Empty)
             {
                 streak = false;
             }
@@ -197,9 +166,9 @@
             {
                 for (int currentRow = 1; currentRow < m_BoardSize; currentRow++)
                 {
-                    Symbols currentSign = m_Board[currentRow, m_BoardSize - (currentRow + 1)];
+                    eSymbols currentSign = m_BoardMatrix[currentRow, m_BoardSize - (currentRow + 1)];
 
-                    if (currentSign != firstSignsecondoryDiagonal)
+                    if (currentSign != firstSignSecondoryDiagonal)
                     {
                         streak = false;
                         break;
