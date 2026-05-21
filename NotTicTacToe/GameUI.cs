@@ -9,29 +9,29 @@ namespace NotTicTacToe
 {
     public class GameUI
     {
-        private static int m_BoardSize;
+        private static int m_BoardHight;
         private static bool m_PlayAgenstCompyter;
 
         public static void PrintBoard(Symbols[,] i_Board)
         {
-            for (int i = 1; i <= m_BoardSize; i++)
+            for (int i = 1; i <= m_BoardHight; i++)
             {
                 Console.Write($"  {i} ");
             }
 
             Console.WriteLine();
-            for (int i = 1; i <= m_BoardSize; i++)
+            for (int i = 1; i <= m_BoardHight; i++)
             {
-                PrintRowCelles(i, i_Board);
-                PrintOrezontalLine();
+                printRowCelles(i, i_Board);
+                printOrezontalLine();
             }
 
         }
 
-        private static void PrintRowCelles(int i_RowNumber, Symbols[,] i_Board)
+        private static void printRowCelles(int i_RowNumber, Symbols[,] i_Board)
         {
             Console.Write($"{i_RowNumber}|");
-            for (int i = 0; i < m_BoardSize; i++) 
+            for (int i = 0; i < m_BoardHight; i++) 
             {
                 string cellValue = i_Board[i_RowNumber - 1, i] == Symbols.Empty ? " " : i_Board[i_RowNumber - 1, i].ToString();
                 Console.Write($" {cellValue} |");
@@ -40,10 +40,10 @@ namespace NotTicTacToe
             Console.WriteLine();
         }
 
-        private static void PrintOrezontalLine() 
+        private static void printOrezontalLine() 
         {
             Console.Write(" =");
-            for (int i = 1; i <= m_BoardSize; i++)
+            for (int i = 1; i <= m_BoardHight; i++)
             {
                 Console.Write($"====");
             }
@@ -67,7 +67,7 @@ namespace NotTicTacToe
 
         public static int GetBoardHight() 
         { 
-            return m_BoardSize; 
+            return m_BoardHight; 
         }
 
         public static bool IsPlayAgenstCompyter()
@@ -138,7 +138,7 @@ namespace NotTicTacToe
         public static void SetGameBoardSize()
         {
             Console.WriteLine("Choose board size (Between 3 - 9):");
-            while (!ValidateBoardSize(out m_BoardSize))
+            while (!ValidateBoardSize(out m_BoardHight))
             {
                 Console.WriteLine("Invalid board size. Please try again.");
                 Console.WriteLine("Choose board size (Between 3 - 9):");
