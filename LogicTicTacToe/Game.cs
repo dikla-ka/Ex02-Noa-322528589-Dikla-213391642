@@ -15,6 +15,7 @@
 
         public void InitializeGame(int i_BoardSize, bool i_SecondPlayerIsComputer)
         {
+            m_CountTurns = 0;
             m_BoardManager = new Board(i_BoardSize);
             if (m_Players == null)
             {
@@ -29,11 +30,6 @@
                 {
                     m_Players[1] = new HumanPlayer();
                 }
-            }
-
-            foreach (Player player in m_Players)
-            {
-                player.ResetScore();
             }
 
             m_Players[0].SetBoard(m_BoardManager);
